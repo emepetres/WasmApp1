@@ -2,7 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasmApp1", "WasmApp1\WasmApp1.csproj", "{F4A66007-07D0-43B9-AA46-F029A6DA0208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WasmApp1", "WasmApp1\WasmApp1.csproj", "{F4A66007-07D0-43B9-AA46-F029A6DA0208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DryIoc", "DryIoc\DryIoc.csproj", "{5735560E-1771-4AB7-8B3C-D729D9C01DA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,5 +16,15 @@ Global
 		{F4A66007-07D0-43B9-AA46-F029A6DA0208}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4A66007-07D0-43B9-AA46-F029A6DA0208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4A66007-07D0-43B9-AA46-F029A6DA0208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BBB43ADB-0239-4B7F-BB9B-D783E403E850}
 	EndGlobalSection
 EndGlobal

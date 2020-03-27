@@ -3,10 +3,14 @@ using WebAssembly;
 
 namespace WasmApp1
 {
-    internal class Program
+    public class Program
     {
-        private static void Main()
+        private static Container container;
+
+        public static void Main()
         {
+            InitApp();
+
             using (var document = (JSObject)Runtime.GetGlobalObject("document"))
             using (var body = (JSObject)document.GetObjectProperty("body"))
             using (var button = (JSObject)document.Invoke("createElement", "button"))
@@ -18,11 +22,19 @@ namespace WasmApp1
                     {
                         using (var window = (JSObject)Runtime.GetGlobalObject())
                         {
-                            window.Invoke("alert", "Hello, Wasm!");
+                            var message = container.Resolve<DummyObject>().getDummyMessage();
+                            window.Invoke("alert", message);
                         }
                     }));
                 body.Invoke("appendChild", button);
             }
+        }
+
+        private static void InitApp()
+        {
+            container = new Container();
+
+            container.RegisterType<DummyObject>();
         }
     }
 }
