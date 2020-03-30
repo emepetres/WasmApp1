@@ -1,5 +1,6 @@
 ﻿using System;
 using WebAssembly;
+using WaveEngine.Framework;
 
 namespace WasmApp1
 {

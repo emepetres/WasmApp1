@@ -12,4 +12,8 @@
     <ProjectReference Include="..\DryIoc\DryIoc.csproj" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Folder Include="WaveEngine\" />
+  </ItemGroup>
+  
 </Project>
