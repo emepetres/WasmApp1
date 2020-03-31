@@ -9,11 +9,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\DryIoc\DryIoc.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="WaveEngine\" />
+    <ProjectReference Include="..\App\App.csproj" />
   </ItemGroup>
   
 </Project>

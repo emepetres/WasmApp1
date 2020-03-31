@@ -4,7 +4,11 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WasmApp1", "WasmApp1\WasmApp1.csproj", "{F4A66007-07D0-43B9-AA46-F029A6DA0208}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DryIoc", "DryIoc\DryIoc.csproj", "{5735560E-1771-4AB7-8B3C-D729D9C01DA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DryIoc", "DryIoc\DryIoc.csproj", "{5735560E-1771-4AB7-8B3C-D729D9C01DA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveEngine.Framework", "WaveEngine.Framework\WaveEngine.Framework.csproj", "{7098F2C2-175C-4B62-A77B-AFBA764A6908}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{D06AF2B2-F761-4487-9445-EBBAA53F286D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +24,14 @@ Global
 		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5735560E-1771-4AB7-8B3C-D729D9C01DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7098F2C2-175C-4B62-A77B-AFBA764A6908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7098F2C2-175C-4B62-A77B-AFBA764A6908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7098F2C2-175C-4B62-A77B-AFBA764A6908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7098F2C2-175C-4B62-A77B-AFBA764A6908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06AF2B2-F761-4487-9445-EBBAA53F286D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06AF2B2-F761-4487-9445-EBBAA53F286D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06AF2B2-F761-4487-9445-EBBAA53F286D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06AF2B2-F761-4487-9445-EBBAA53F286D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

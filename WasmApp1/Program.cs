@@ -1,16 +1,17 @@
 ﻿using System;
 using WebAssembly;
-using WaveEngine.Framework;
+using App;
 
 namespace WasmApp1
 {
     public class Program
     {
-        private static Container container;
+        //private static Container container;
 
         public static void Main()
         {
-            InitApp();
+            // Create app
+            var application = new MyApplication();
 
             using (var document = (JSObject)Runtime.GetGlobalObject("document"))
             using (var body = (JSObject)document.GetObjectProperty("body"))
@@ -23,7 +24,7 @@ namespace WasmApp1
                     {
                         using (var window = (JSObject)Runtime.GetGlobalObject())
                         {
-                            var message = container.Resolve<DummyObject>().getDummyMessage();
+                            var message = application.Container.Resolve<DummyObject>().getDummyMessage();
                             window.Invoke("alert", message);
                         }
                     }));
@@ -31,11 +32,11 @@ namespace WasmApp1
             }
         }
 
-        private static void InitApp()
-        {
-            container = new Container();
+        //private static void InitApp()
+        //{
+        //    container = new Container();
 
-            container.RegisterType<DummyObject>();
-        }
+        //    container.RegisterType<DummyObject>();
+        //}
     }
 }
