@@ -1,17 +1,28 @@
 #include <stdio.h>
 #include <chrono>
+#include <emscripten/emscripten.h>
 #include <GL/glfw.h>
 
 #define WASM_EXPORT __attribute__((visibility("default")))
+
+typedef void (*csharpFunc)(void);
 
 extern "C"
 {
 	WASM_EXPORT void test_wrapper();
 	WASM_EXPORT bool init_gl();
 	WASM_EXPORT void on_create();
+	WASM_EXPORT void set_main_loop();
 	WASM_EXPORT void do_frame();
 	WASM_EXPORT void on_terminate();
 }
+
+int gl_clear_counter;
+long long gl_clear_counter_global;
+long double time_counter;
+long double time_counter_global;
+
+void do_frame();
 
 WASM_EXPORT void test_wrapper()
 {
@@ -35,31 +46,51 @@ WASM_EXPORT bool init_gl()
 		return false;
 	}
 
+	gl_clear_counter = 0;
+	time_counter = 0;
+	gl_clear_counter_global = 0;
+	time_counter_global = 0;
+
 	return true;
 }
 
 WASM_EXPORT void on_create()
 {
-	auto t1 = std::chrono::high_resolution_clock::now();
+	//auto t1 = std::chrono::high_resolution_clock::now();
 	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-	auto t2 = std::chrono::high_resolution_clock::now();
+	//auto t2 = std::chrono::high_resolution_clock::now();
 
 	//printf("glClearColor: %lld ns\n", std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count());
+}
+
+WASM_EXPORT void set_main_loop()
+{
+	emscripten_set_main_loop(do_frame, 0, 0);
 }
 
 WASM_EXPORT void do_frame()
 {
 	/* Render here */
-	auto t1 = std::chrono::high_resolution_clock::now();
+	auto t1 = std::chrono::steady_clock::now();
 	glClear(GL_COLOR_BUFFER_BIT);
-	auto t2 = std::chrono::high_resolution_clock::now();
+	auto t2 = std::chrono::steady_clock::now();
 
-	//printf("glClear: %lld ns\n", std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count());
+	gl_clear_counter++;
+	time_counter += std::chrono::duration<long double>(t2 - t1).count();
+
+	if (gl_clear_counter == 600)
+	{
+		time_counter_global += time_counter;
+		gl_clear_counter_global += gl_clear_counter;
+		printf("glClear: %Lf ns, mean: %Lf ns\n", time_counter, time_counter_global);
+		gl_clear_counter = 0;
+		time_counter = 0;
+	}
 
 	/* Swap front and back buffers */
-	t1 = std::chrono::high_resolution_clock::now();
-	glfwSwapBuffers();
-	t2 = std::chrono::high_resolution_clock::now();
+	//t1 = std::chrono::high_resolution_clock::now();
+	//glfwSwapBuffers();
+	//t2 = std::chrono::high_resolution_clock::now();
 
 	//printf("glfwSwapBuffers: %lld ns\n", std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count());
 

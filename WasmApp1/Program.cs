@@ -16,13 +16,20 @@ namespace WasmApp1
         private static extern void on_create();
 
         [DllImport("DynamicWrapper")]
+        private static extern void set_main_loop();
+
+        [DllImport("DynamicWrapper")]
         private static extern void do_frame();
 
         [DllImport("DynamicWrapper")]
         private static extern void on_terminate();
 
+        private static JSObject window;
+
         private static void Main()
         {
+            window = (JSObject)Runtime.GetGlobalObject();
+
             test_wrapper();
 
             using (var document = (JSObject)Runtime.GetGlobalObject("document"))
@@ -31,27 +38,28 @@ namespace WasmApp1
             {
                 button.SetObjectProperty("innerHTML", "Click me!");
                 button.SetObjectProperty(
-                    "onclick", 
-                    new Action<JSObject>(_ => 
+                    "onclick",
+                    new Action<JSObject>(_ =>
                     {
-                        using (var window = (JSObject)Runtime.GetGlobalObject())
-                        {
-                            window.Invoke("alert", "Hello, Wasm!");
-                        }
+                        window.Invoke("alert", "Hello, Wasm!");
                     }));
                 body.Invoke("appendChild", button);
             }
 
             if (init_gl())
             {
+
                 on_create();
-                while (true)
-                {
-                    do_frame();
-                }
+
+                set_main_loop();
+                //window.Invoke("requestAnimationFrame", new Action<double>(_ => do_frame()));
+            }
+            else
+            {
+                System.Console.WriteLine("WebGL Init failed!");
             }
 
-            on_terminate();
+            //on_terminate();
         }
     }
 }

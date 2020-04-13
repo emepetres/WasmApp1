@@ -1,33 +1,47 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <script src="mono-config.js"></script>
     <script src="runtime.js"></script>
     <script defer src="dotnet.js"></script>
 </head>
-    <body>
-        <div id="feedback-body" class="container-fluid">
-            <p id="loading">
-                <i class="fa fa-refresh fa-spin" style="font-size:14px;margin-right:0.5em;"></i> Loading...
-            </p>
-        </div>
 
-        <script type="text/javascript">
-            var App = {
-                init: function () {
-                    var feedback = document.getElementById("feedback-body");
+<body>
+    <div id="feedback-body" class="container-fluid">
+        <p id="loading">
+            <i class="fa fa-refresh fa-spin" style="font-size:14px;margin-right:0.5em;"></i> Loading...
+        </p>
+    </div>
 
-                    if (feedback) {
-                        feedback.parentElement.removeChild(feedback);
-                    }
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1 style="background-color:black;"></canvas>
 
-                    BINDING.call_static_method("[WasmApp1] WasmApp1.Program:Main", []);
+    <script type="text/javascript">
+        var App = {
+            init: function () {
+                var feedback = document.getElementById("feedback-body");
+
+                if (feedback) {
+                    feedback.parentElement.removeChild(feedback);
                 }
-            };
-        </script>
-    </body>
+
+                BINDING.call_static_method("[WasmApp1] WasmApp1.Program:Main", []);
+            }
+        };
+        Module["canvas"] = (function () {
+            var canvas = document.getElementById('canvas');
+
+            // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+            // application robust, you may want to override this behavior before shipping!
+            // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+            canvas.addEventListener("webglcontextlost", function (e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+            return canvas;
+        })();
+    </script>
+</body>
+
 </html>
