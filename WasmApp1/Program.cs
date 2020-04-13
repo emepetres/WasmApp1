@@ -7,11 +7,23 @@ namespace WasmApp1
     internal class Program
     {
         [DllImport("DynamicWrapper")]
-        private static extern void TestWrapper();
+        private static extern void test_wrapper();
+
+        [DllImport("DynamicWrapper")]
+        private static extern bool init_gl();
+
+        [DllImport("DynamicWrapper")]
+        private static extern void on_create();
+
+        [DllImport("DynamicWrapper")]
+        private static extern void do_frame();
+
+        [DllImport("DynamicWrapper")]
+        private static extern void on_terminate();
 
         private static void Main()
         {
-            TestWrapper();
+            test_wrapper();
 
             using (var document = (JSObject)Runtime.GetGlobalObject("document"))
             using (var body = (JSObject)document.GetObjectProperty("body"))
@@ -29,6 +41,17 @@ namespace WasmApp1
                     }));
                 body.Invoke("appendChild", button);
             }
+
+            if (init_gl())
+            {
+                on_create();
+                while (true)
+                {
+                    do_frame();
+                }
+            }
+
+            on_terminate();
         }
     }
 }
