@@ -6,20 +6,24 @@ namespace WasmApp1
 {
     internal class Program
     {
-        [DllImport("DynamicWrapper")]
+        [DllImport("eglwrapper")]
         private static extern void test_wrapper();
 
-        [DllImport("DynamicWrapper")]
+        [DllImport("eglwrapper")]
         private static extern bool init_gl();
 
-        [DllImport("DynamicWrapper")]
+        [DllImport("eglwrapper")]
         private static extern void on_create();
 
-        [DllImport("DynamicWrapper")]
+        [DllImport("eglwrapper")]
         private static extern void set_main_loop();
 
-        [DllImport("DynamicWrapper")]
-        private static extern void do_frame();
+        //[DllImport("eglwrapper")]
+        //private static extern void do_frame();
+
+        private static uint GL_COLOR_BUFFER_BIT = 0x00004000;
+        [DllImport("eglwrapper")]
+        private static extern void glClear(uint glbitfield);
 
         private static JSObject window;
 
@@ -74,7 +78,7 @@ namespace WasmApp1
         private static void loop(double timestampMilliseconds)
         {
             do_frame_watch.Restart();
-            do_frame();
+            glClear(GL_COLOR_BUFFER_BIT);
             do_frame_watch.Stop();
 
             iteration_counter++;

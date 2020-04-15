@@ -5,7 +5,14 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Remove="aot-link-descriptor.xml" />
     <None Remove="index.html" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="aot-link-descriptor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
 </Project>
