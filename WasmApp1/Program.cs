@@ -51,7 +51,9 @@ namespace WasmApp1
 
         private const CallingConvention CallConv = CallingConvention.Winapi;
 
+        [UnmanagedFunctionPointer(CallConv)]
         private delegate void glClear_t(uint mask);
+
         private static glClear_t p_glClear;
         public static void glClear(uint mask) => p_glClear(mask);
 
