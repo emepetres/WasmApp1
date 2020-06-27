@@ -1,28 +1,32 @@
 ﻿using System;
-using WebAssembly;
+using System.Runtime.InteropServices;
 
 namespace WasmApp1
 {
-    internal class Program
+  class MonoPInvokeCallbackAttribute : Attribute
+  {
+    public MonoPInvokeCallbackAttribute(Type t) { }
+  }
+
+  class Program
+  {
+    private const CallingConvention CallConv = CallingConvention.Winapi;
+
+    [UnmanagedFunctionPointer(CallConv)]
+    private delegate void doLoop_t();
+
+    [DllImport("libwebgpu")]
+    private static extern void emscripten_set_main_loop(doLoop_t func, int fps, int simulate_infinite_loop);
+
+    private static void Main()
     {
-        private static void Main()
-        {
-            using (var document = (JSObject)Runtime.GetGlobalObject("document"))
-            using (var body = (JSObject)document.GetObjectProperty("body"))
-            using (var button = (JSObject)document.Invoke("createElement", "button"))
-            {
-                button.SetObjectProperty("innerHTML", "Click me!");
-                button.SetObjectProperty(
-                    "onclick", 
-                    new Action<JSObject>(_ => 
-                    {
-                        using (var window = (JSObject)Runtime.GetGlobalObject())
-                        {
-                            window.Invoke("alert", "Hello, Wasm!");
-                        }
-                    }));
-                body.Invoke("appendChild", button);
-            }
-        }
+      emscripten_set_main_loop(do_loop, 0, 0);
     }
+
+    [MonoPInvokeCallback(typeof(doLoop_t))]
+    private static void do_loop()
+    {
+      Console.WriteLine("loop!");
+    }
+  }
 }

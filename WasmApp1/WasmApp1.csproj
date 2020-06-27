@@ -5,7 +5,22 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Remove="aot-link-descriptor.xml" />
     <None Remove="index.html" />
+    <None Remove="libemscripten.bc" />
+    <None Remove="libwebgpu.bc" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="aot-link-descriptor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libemscripten.bc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libwebgpu.bc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
 </Project>
